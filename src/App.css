@@ -1,33 +1,140 @@
-.App {
-  text-align: center;
+
+/*
+styles the sliders div element
+ */
+.Sliders {
+  color: black;
+  width: 440px;
+  position:absolute;
+  left:60px;
+  top:150px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.Slider-Label {
+  position:absolute;
+  left:-50px;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+.ThCircle {
+  position:absolute;
+  left:575px;
+  top:50px;
+
 }
 
-.App-link {
-  color: #61dafb;
+.thCircleLabel {
+  position:absolute;
+  left:-10px;
+  top:-20px;
+  color:black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.TcCircle{
+  position:absolute;
+  left:575px;
+  top:500px;
 }
+
+.tcCircleLabel{
+  position:absolute;
+  left:-15px;
+  top:90px;
+  color:black;
+}
+
+.Calculate-Button {
+  position:absolute;
+  left:255px;
+  top:555px;
+  width:120px;
+
+}
+
+.inputSelection{
+  position:absolute;
+  top:275px;
+}
+
+.ResultsPanel{
+  position:absolute;
+  top:400px;
+}
+
+.TempScale {
+  position:absolute;
+  top:35px;
+  left:-130px;
+
+}
+
+.TempSelection{
+  position:absolute;
+  left:135px;
+}
+
+.MaxTempSelector{
+  position:absolute;
+  left:250px;
+}
+
+.userInput {
+  position:absolute;
+  left:400px;
+  top:70px;
+}
+
+.Reset-Button {
+  position:absolute;
+  left:255px;
+  top:600px;
+  width:120px;
+}
+
+.HeatEngine{
+  position:absolute;
+  left:585px;
+  top:300px;
+}
+
+.HeatEngineLabel{
+  position:absolute;
+  left:-7px;
+  top:15px;
+}
+
+.workArrow{
+  position:absolute;
+  left:600px;
+  top:240px;
+  width:300px;
+}
+
+.qhArrow {
+  position:absolute;
+  left:510px;
+  top:40px;
+  width:225px;
+
+}
+
+.qcArrow{
+  position:absolute;
+  width:225px;
+  left:510px;
+  top:275px;
+}
+
+.qhArrowLabel {
+  position:absolute;
+  left:520px;
+  top:175px;
+}
+
+.qcArrowLabel{
+  position:absolute;
+  left:520px;
+  top:370px;
+}
+

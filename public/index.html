@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+    Notice the use of %PUBLIC_URL% in the tags above.
+    It will be replaced with the URL of the `public` folder during the build.
+    Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+    work correctly both with client-side routing and a non-root public URL.
+    Learn how to configure a non-root public URL by running `npm run build`.
+  -->
+  <title>Thermodynamics - Heat Engine</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+<div id="openingInfo">
+  <b>Thermodynamics - Heat Engines</b>
+  <hr>
+  <b>Directions:</b>
+  <br>
+  <ul>
+    <li>
+      First off, you will notice two slider bars (labeled Th and Tc). These adjust the temperature at your hot source and cold sink. If you look at the bottom of the applet, under "Results", you will see the current temperatures (by default in Kelvin). You can also change the maximum value of the temperatures by clicking one of the Tmax radio buttons located right above the sliders.
+    </li>
+    <li>
+      Go ahead and move the sliders back and forth, and take a look at the circles and arrows to the right. The circles represent your hot source and cold sink, and their color (from cold black to hot white) is based on the temperature of each place.
+    </li>
+    <li>
+      You will probably notice the arrows growing and shrinking while you move the sliders around. These arrows represent the energy coming from your hot source (by default 100), going to your cold sink, and the work produced (they are labeled Qh, Qc, and w respectively). You can find their values under "Results" at the bottom of the applet. If you play around with the sliders a bit, you can see that the work produced and the energy going to the cold sink add up to equal the energy coming from your hot source.
+    </li>
+    <li>
+      Now that you have a basic understanding of what's going on, let's move on to a more advaced feature of the applet: the temperature system radio buttons. These three buttons, labeled Fahrenheit, Celsius, and Kelvin, allow you to change the temperature system. Go ahead and click on one, and you will see that the temperatures will change accordingly.
+    </li>
+    <li>
+      Okay, so we've played with the sliders, watched the graphics change, and played with the temperature systems, now let's talk about the final feature of the applet: the input boxes. These three boxes, labeled Qh, Qc, and w, allow you to input a value (one at a time), and then base all other calculations done off of that value. This allows you to experiment around a bit. Go ahead and click on the radio button for the value you would like to input, and the corresponding input box should turn white. Enter your value in the input box and hit "CALCULATE". Now your value will be used in all of the calculations. If you do happen to change Qh, and you want the default value back, just hit the "RESET qh(100J)" button and it will default back to its original value!
+    </li>
+  </ul>
+</div>
+<div id="root"></div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start` or `yarn start`.
+  To create a production bundle, use `npm run build` or `yarn build`.
+-->
+</body>
 </html>
