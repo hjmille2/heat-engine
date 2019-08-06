@@ -2,7 +2,7 @@
   "name": "heat-engine-0.13.2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://hjmille2.github.io/heat-engine",
+  "homepage": "https://hjmille2.github.io/heat-engine",
   "dependencies": {
     "@elsdoerfer/react-arrow": "^1.0.3",
     "gh-pages": "^2.1.0",
@@ -18,9 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build --git git",
     "eject": "react-scripts eject"
-
   },
   "eslintConfig": {
     "extends": "react-app"

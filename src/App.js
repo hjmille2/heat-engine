@@ -23,6 +23,7 @@ import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 //import Poly from "react-svg-polygon";
 import Arrow from "@elsdoerfer/react-arrow";
+import lightBulb from "./Electric-Bulb-Download-PNG-Image.png"
 
 
 
@@ -69,9 +70,8 @@ class App extends Component {
     this.checkValidSliders("th", value);
     this.determineCircleColor("thCircleColor", value);
     this.setTemp(value, "thTemp");
-    this.updateResult();
+    this.qhCalculations();
     this.updateArrowSize();
-    console.log(this.state.wArrowSize, this.state.qhArrowSize, this.state.qcArrowSize);
   };
 
   //updates the state with the new th slider value
@@ -83,7 +83,7 @@ class App extends Component {
     this.checkValidSliders("tc", value);
     this.determineCircleColor("tcCircleColor", value);
     this.setTemp(value, "tcTemp");
-    this.onCalcSubmit();
+    this.qhCalculations();
     this.updateArrowSize();
   };
 
@@ -158,23 +158,38 @@ class App extends Component {
 
   //changes when something is typed into the W box
   inputChangeW = (event)=>{
-    this.setState({"W":event.target.value});
+    this.setState({
+      W:event.target.value,
+      wInput:event.target.value
+    });
   };
 
   //changes when something is typed into the QC box
   inputChangeQc = (event) => {
-    this.setState({"Qc":event.target.value});
+    this.setState({
+      Qc:event.target.value,
+      qcInput:event.target.value
+    });
   };
 
   //changes when something is typed into the Qh
   inputChangeQh = (event) => {
-    this.setState({"Qh":event.target.value});
+    this.setState({
+      Qh:event.target.value,
+      qhInput:event.target.value
+    });
   };
 
 
   //does the calculations based on the current state using thermocalculations object
   onCalcSubmit = () => {
     this.updateResult();
+    this.setState({
+      qhInput:"",
+      qcInput:"",
+      wInput:""
+    });
+
   };  //end of onCalcSubmit
 
 
@@ -182,23 +197,35 @@ class App extends Component {
   updateResult = () => {
     const selected = this.state.selectedOption;
     if(selected==="W"){
-      const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
-      const Qc = (ThermoCalculations.calcQcFromW(this.state.W, E));
-      const Qh = (ThermoCalculations.calcQhFromW(Qc, this.state.W));
-      this.setState({efficiency:`${E*100}%`, Qc:Qc, Qh:Qh});
+      this.wCalculations();
     }
     else if(selected==="Qc"){
-      const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));   //keeps to 2 decimal places
-      const W = (ThermoCalculations.calcWFromQc(this.state.Qc, E));
-      const Qh = (ThermoCalculations.calcQhFromQc(this.state.Qc, W));
-      this.setState({efficiency:`${E*100}%`, W:W, Qh:Qh});
+      this.qcCalculations();
     }//end of Qc if block
     else if(selected==="Qh"){
-      const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
-      const W = (ThermoCalculations.calcWFromQh(E, this.state.Qh));
-      const Qc=(ThermoCalculations.calcQcFromQh(this.state.Qh, W));
-      this.setState({efficiency:`${E*100}%`, W:W, Qc:Qc});
+      this.qhCalculations();
     }//end of Qh block
+  };
+
+  wCalculations = () => {
+    const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
+    const Qc = (ThermoCalculations.calcQcFromW(this.state.W, E));
+    const Qh = (ThermoCalculations.calcQhFromW(Qc, this.state.W));
+    this.setState({efficiency:`${E*100}%`, Qc:Qc, Qh:Qh});
+  };
+
+  qcCalculations = () => {
+    const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));   //keeps to 2 decimal places
+    const W = (ThermoCalculations.calcWFromQc(this.state.Qc, E));
+    const Qh = (ThermoCalculations.calcQhFromQc(this.state.Qc, W));
+    this.setState({efficiency:`${E*100}%`, W:W, Qh:Qh});
+  };
+
+  qhCalculations= () => {
+    const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
+    const W = (ThermoCalculations.calcWFromQh(E, this.state.Qh));
+    const Qc=(ThermoCalculations.calcQcFromQh(this.state.Qh, W));
+    this.setState({efficiency:`${E*100}%`, W:W, Qc:Qc});
   };
 
 
@@ -231,6 +258,8 @@ class App extends Component {
       thSliderValue:1,
       tcSliderValue:0,
     }, () => {
+      this.setTemp(this.state.thSliderValue, "thTemp");
+      this.setTemp(this.state.tcSliderValue, "tcTemp");
       this.updateResult();
       this.determineCircleColor("thCircleColor", this.state.thSliderValue);
       this.determineCircleColor("tcCircleColor", this.state.tcSliderValue);
@@ -248,11 +277,12 @@ class App extends Component {
   //run when the reset button is clicked
   //calculates with the current state and qh changes to 100
   onResetClick = () => {
-    this.setState({Qh:100});
-    const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
-    const W = (ThermoCalculations.calcWFromQh(E, this.state.Qh));
-    const Qc=(ThermoCalculations.calcQcFromQh(this.state.Qh, W));
-    this.setState({efficiency:`${E*100}%`, W:W, Qc:Qc});
+    this.setState({Qh:100}, function () {
+      const E = (ThermoCalculations.calculateE(this.state.tcSliderValue, this.state.thSliderValue));
+      const W = (ThermoCalculations.calcWFromQh(E, this.state.Qh));
+      const Qc=(ThermoCalculations.calcQcFromQh(this.state.Qh, W));
+      this.setState({efficiency:`${E*100}%`, W:W, Qc:Qc});
+    });
   };
 
   updateArrowSize = () => {
@@ -496,6 +526,7 @@ class App extends Component {
                     className="input-box"
                     disabled={this.state.selectedOption !== "Qh"}
                     onChange={this.inputChangeQh}
+                    value={this.state.qhInput}
                 />
 
               </div>
@@ -515,6 +546,7 @@ class App extends Component {
                     className="input-box"
                     disabled={this.state.selectedOption !== "Qc"}
                     onChange={this.inputChangeQc}
+                    value={this.state.qcInput}
                 />
 
               </div>
@@ -534,6 +566,8 @@ class App extends Component {
                     className="input-box"
                     disabled={this.state.selectedOption !== "W"}
                     onChange={this.inputChangeW}
+                    value={this.state.wInput}
+
                 />
 
                 <div className ="Calculate-Button">
@@ -613,7 +647,7 @@ class App extends Component {
                   yPos={55}
                   radius={35}
               />
-              <label className="tcCircleLabel">Cold Source at Tc</label>
+              <label className="tcCircleLabel">Cold Sink at Tc</label>
             </div>
 
             <div>
@@ -624,6 +658,15 @@ class App extends Component {
                   className="workArrow"
                 />
 
+            </div>
+
+            <div>
+              <label className="lightBulbLabel">Work</label>
+              <img
+                  src={lightBulb}
+                  alt="lightbulb"
+                  className="lightBulb"
+                />
             </div>
 
           </div>
@@ -707,6 +750,7 @@ class InputBox extends Component {
       className,
       disabled,
       onChange,
+      value,
     } = this.props;
 
     return (
@@ -715,6 +759,7 @@ class InputBox extends Component {
             className={className}
             disabled={disabled}
             onChange={onChange}
+            value={value}
         />
     )//end of return
   }//end of render
@@ -749,37 +794,37 @@ class CheckBox extends Component {
 //object containing all of the calculations needed for the results panel of the app
 const ThermoCalculations = {
   calculateE : function(Tc, Th) {
-    const e = 1 - (Tc/Th);
+    const e = 1 - (parseFloat(Tc)/parseFloat(Th));
     return e.toFixed(2);
   },
 
   calcWFromQc : function(Qc, E) {
-    const w = Qc * (E/(1-E));
+    const w = parseFloat(Qc) * (parseFloat(E)/(1-parseFloat(E)));
     return w.toFixed(2);
   },
 
   calcQhFromQc : function(Qc, W){
-    const Qh = Qc + W;
-    return parseFloat(Qh).toFixed(2);
+    const Qh = parseFloat(Qc) + parseFloat(W);
+    return Qh.toFixed(2);
   },
 
   calcQcFromW : function(W, E){
-    const Qc = W/((1-E)/E);
+    const Qc = parseFloat(W)/((1-parseFloat(E))/parseFloat(E));
     return Qc.toFixed(2);
   },
 
   calcQhFromW : function(Qc, W) {
-    const Qh = Qc + W;
+    const Qh = parseFloat(Qc) + parseFloat(W);
     return Qh.toFixed(2);
   },
 
   calcWFromQh : function(E, Qh) {
-    const W = E*Qh;
+    const W = parseFloat(E)*parseFloat(Qh);
     return W.toFixed(2);
   },
 
   calcQcFromQh : function(Qh, W) {
-    const Qc = Qh-W;
+    const Qc = parseFloat(Qh)-parseFloat(W);
     return Qc.toFixed(2);
   },
 };
@@ -939,21 +984,5 @@ const arrowSize = {
   },
 };
 
-class ArrowShape extends Component {
-  render() {
-    const {
-      angle,
-      length,
-      style
-    } = this.props;
-    return (
-      <Arrow
-          angle={angle}
-          length={length}
-          style={style}
-        />
-    );
-  }
-}
 
 export default App;

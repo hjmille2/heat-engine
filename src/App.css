@@ -46,8 +46,8 @@ styles the sliders div element
 
 .Calculate-Button {
   position:absolute;
-  left:255px;
-  top:555px;
+  left:125px;
+  top:10px;
   width:120px;
 
 }
@@ -87,8 +87,8 @@ styles the sliders div element
 
 .Reset-Button {
   position:absolute;
-  left:255px;
-  top:600px;
+  left:125px;
+  top:30px;
   width:120px;
 }
 
@@ -138,3 +138,16 @@ styles the sliders div element
   top:370px;
 }
 
+.lightBulb{
+  height:150px;
+  width:150px;
+  position:absolute;
+  left:800px;
+  top:265px;
+}
+
+.lightBulbLabel{
+  position:absolute;
+  left:847px;
+  top:240px;
+}
