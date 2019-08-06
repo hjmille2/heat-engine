@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/heat-engine/precache-manifest.274c89657aebd23ff5d3abb56238a9b2.js"
+  "/heat-engine/precache-manifest.ff6aebb1763bba7f8b0d700264790f4a.js"
 );
 
 self.addEventListener('message', (event) => {
